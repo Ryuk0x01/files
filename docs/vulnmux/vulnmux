@@ -1,5 +1,4 @@
-#!/usr/bin/bash
-#/data/data/com.termux/files/usr/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 
 cyan='\033[1;36m'
 green='\033[1;32m'
@@ -28,7 +27,7 @@ do
 	case $option in
 		1)
 			echo -e "Starting $green MySQL server...$reset"
-			#mysqld_safe -u root &
+			mysqld_safe -u $(hostname) &
 			echo
 			sleep 2
 			echo -e "$green MySQL server$reset started!"
@@ -37,27 +36,27 @@ do
 			echo -e "Starting $red Apache server...$reset"
 			sleep 1
 			echo
-			#apachectl
+			apachectl
 			echo
 			echo -e "$red Apache server$reset running!"
 			echo
 			echo -e "Launching$purple DVWA...$reset"
 			sleep 2
-			#exec am start --user 0 -n com.android.chrome/com.google.android.apps.chrome.Main -d "http://localhost:8080/dvwa" >/dev/null
+			exec am start --user 0 -n com.android.chrome/com.google.android.apps.chrome.Main -d "http://localhost:8080/dvwa" >/dev/null
 			exit 0
 			;;
 		2) 
 			echo -e "Stopping $green MySQL server...$reset"
-			#mysqld_safe -u root &
+			mysqld_safe -u root &
 			echo
 			sleep 2
 			echo -e "$green MySQL server$reset stopped!"
 			echo
-			#pkill mysql
+			pkill mysql
 			echo
 			echo -e "Stopping $red Apache server...$reset"
 			sleep 1
-			#apachectl stop
+			apachectl stop
 			echo
 			echo -e "$red Apache server$reset stopped!"
 			echo
