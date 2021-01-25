@@ -20,7 +20,7 @@ do
 	echo "-------------------------------"
 	echo -e "1. $green Run$reset dvwa!"
 	echo -e "2. $red Shutdown$reset dvwa!"
-	echo -e "4. $purple Exit!$reset"
+	echo -e "3. $purple Exit!$reset"
         # get input from the user 
 	read -p "Choose option [ 1 -4 ] " option
         # make decision using case..in..esac 
