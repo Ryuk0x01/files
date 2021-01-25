@@ -1,9 +1,5 @@
-#!/data/data/com.termux/files/usr/bin/bash
-#
-# Shell script to launch vulnerable web applications on android
-# Author - Ryuk (Rishi Choudhary)
-# Github - https://github.com/Ryuk0x01
-#
+#!/usr/bin/bash
+#/data/data/com.termux/files/usr/bin/bash
 
 cyan='\033[1;36m'
 green='\033[1;32m'
@@ -14,71 +10,68 @@ purple='\033[1;35m'
 reset='\033[0m'
 
 
-echo -e "$red"
-figlet "Vulnmux"
-echo -e "$reset		By -$green Ryuk $reset"
-echo -e "$yellow Options $reset : "
-echo -e "1 -$green Run$reset dvwa!"
-echo -e "2 -$red Shutdown$reset dvwa!"
-echo -e "3 -$purple Exit!$reset"
-echo
-read -p "Choose option$yellow (eg:1)$reset : " OPTIONS
-
-while [ "$OPTIONS" != "5" ]
+while :
 do
 	clear
-echo -e "$red"
-figlet "Vulnmux"
-echo -e "$reset		By -$green Ryuk $reset"
-echo -e "$yellow Options $reset : "
-echo -e "1 -$green Run$reset dvwa!"
-echo -e "2 -$red Shutdown$reset dvwa!"
-echo -e "3 -$purple Exit!$reset"
-	
-	if [ $OPTIONS == 1 ]
-	then
-		echo -e "Starting $green MySQL server...$reset"
-		mysqld_safe -u root &
-		echo
-		sleep 2
-		echo -e "$green MySQL server$reset started!"
-		echo
-		echo
-		echo -e "Starting $red Apache server...$reset"
-		sleep 1
-		echo
-		apachectl
-		echo
-		echo -e "$red Apache server$reset running!"
-		echo
-		echo -e "Launching$purple DVWA...$reset"
-		sleep 2
-		exec am start --user 0 -n com.android.chrome/com.google.android.apps.chrome.Main -d "http://localhost:8080/dvwa" >/dev/null
-		echo
-	elif [ $OPTIONS == 2 ]
-	then
-		echo -e "Stopping $green MySQL server...$reset"
-		mysqld_safe -u root &
-		echo
-		sleep 2
-		echo -e "$green MySQL server$reset stopped!"
-		echo
-		echo
-		echo -e "Stopping $red Apache server...$reset"
-		sleep 1
-		echo
-		apachectl
-		echo
-		echo -e "$red Apache server$reset stopped!"
-		echo
-		echo -e "$purple DVWA$reset closed!"
-		echo
-	elif [ $OPTIONS == 3 ]
-	then
-		echo -e "Quitting$red Vulnmux$reset!!"
-		sleep 2
-		exit
-	else
-		echo -e "Please choose correct$yellow option$reset"
-	fi
+        # display menu
+        echo -e "$blue Running on -$yellow $(hostname) $reset"
+	echo "-------------------------------"
+	echo -e "$red     V u l n$reset m u x$reset "
+	echo -e "	By -$red Ryuk$reset"
+	echo "-------------------------------"
+	echo -e "1. $green Run$reset dvwa!"
+	echo -e "2. $red Shutdown$reset dvwa!"
+	echo -e "4. $purple Exit!$reset"
+        # get input from the user 
+	read -p "Choose option [ 1 -4 ] " option
+        # make decision using case..in..esac 
+	case $option in
+		1)
+			echo -e "Starting $green MySQL server...$reset"
+			#mysqld_safe -u root &
+			echo
+			sleep 2
+			echo -e "$green MySQL server$reset started!"
+			echo
+			echo
+			echo -e "Starting $red Apache server...$reset"
+			sleep 1
+			echo
+			#apachectl
+			echo
+			echo -e "$red Apache server$reset running!"
+			echo
+			echo -e "Launching$purple DVWA...$reset"
+			sleep 2
+			#exec am start --user 0 -n com.android.chrome/com.google.android.apps.chrome.Main -d "http://localhost:8080/dvwa" >/dev/null
+			exit 0
+			;;
+		2) 
+			echo -e "Stopping $green MySQL server...$reset"
+			#mysqld_safe -u root &
+			echo
+			sleep 2
+			echo -e "$green MySQL server$reset stopped!"
+			echo
+			#pkill mysql
+			echo
+			echo -e "Stopping $red Apache server...$reset"
+			sleep 1
+			#apachectl stop
+			echo
+			echo -e "$red Apache server$reset stopped!"
+			echo
+			echo -e "$purple DVWA$reset closed!"
+			exit 0
+			;;
+		3)
+			echo -e "$purple Bye!$reset "
+			exit 0
+			;;
+		*)
+			echo -e "$red Error$reset : Invalid option..."	
+			read -p "Press [Enter] key to continue..." readEnterKey
+			;;
+	esac		
+				
 done
